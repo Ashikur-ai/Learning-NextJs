@@ -1,6 +1,7 @@
 
 
-import { connectDb } from "@/db";
+
+import { connectDb } from "@/helper/db";
 import { NextResponse } from "next/server";
 
 connectDb();
