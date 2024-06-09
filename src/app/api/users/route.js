@@ -1,4 +1,9 @@
+
+
+import { connectDb } from "@/db";
 import { NextResponse } from "next/server";
+
+connectDb();
 
 export function GET() {
     
