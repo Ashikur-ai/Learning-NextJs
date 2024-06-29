@@ -2,71 +2,58 @@
 
 
 import { connectDb } from "@/helper/db";
+import { User } from "@/models/user";
 import { NextResponse } from "next/server";
 
 connectDb();
 
-export function GET() {
-    
-    const users = [
-        {
-          name: "John Doe",
-          address: {
-            street: "123 Maple Street",
-            city: "Springfield",
-            state: "IL",
-            zip: "62704"
-          }
-        },
-        {
-          name: "Jane Smith",
-          address: {
-            street: "456 Oak Avenue",
-            city: "Metropolis",
-            state: "NY",
-            zip: "10001"
-          }
-        },
-        {
-          name: "Emily Johnson",
-          address: {
-            street: "789 Pine Lane",
-            city: "Gotham",
-            state: "NJ",
-            zip: "07001"
-          }
-        },
-        {
-          name: "Michael Brown",
-          address: {
-            street: "101 Birch Boulevard",
-            city: "Star City",
-            state: "CA",
-            zip: "90210"
-          }
-        },
-        {
-          name: "Sarah Davis",
-          address: {
-            street: "202 Cedar Court",
-            city: "Central City",
-            state: "CO",
-            zip: "80012"
-          }
-        }
-    ];
-    return NextResponse.json(users);
+export async function GET() {
 
-}
-export function POST(){}
-export function DELETE(request) {
-    console.log("delete api called");
+  let users = [];
+
+  try {
+    users = await User.find().select("-password");
+  } catch(error) {
+    console.log(error);
     return NextResponse.json({
-        message: "deleted !!",
-        status: true,
-    },
-    {status:201, statusText: "status text"}
-    );
+      message: "failed to get users",
+      success: false,
+    });
+  }
+  return NextResponse.json(users);
+
 }
 
-export function PUT(){}
+
+
+// create user 
+export async function POST(request) {
+
+  // fetch user detail from request 
+  const { name, email, password, about, profileURL } = await request.json();
+
+  // create user object with user model 
+  const user = new User({
+    name, email, password, about, profileURL,
+  });
+
+  try {
+    //  save the object to database 
+    const createdUser = await user.save();
+    const response = NextResponse.json(user, {
+      status: 201,
+    });
+    return response;
+
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({
+      message: "failed to create user !!",
+      status: false,
+    });
+  }
+}
+
+
+
+
