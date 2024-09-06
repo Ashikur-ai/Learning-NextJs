@@ -1,2 +1,1 @@
-Start from Nested routing
-https://www.youtube.com/watch?v=mEral6yz130&list=PLC3y8-rFHvwjOKd6gdf4QtV1uYNiQnruI&index=6
+Start TypeScript from 4.27 mins of this video: https://www.youtube.com/watch?v=gCv2Fyth33A&list=PLwGdqUZWnOp0xfHQFmlL52b_6-QZ0mnk_&index=4
