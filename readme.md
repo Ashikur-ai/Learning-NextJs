@@ -1,1 +1,2 @@
 Start TypeScript from 4.27 mins of this video: https://www.youtube.com/watch?v=gCv2Fyth33A&list=PLwGdqUZWnOp0xfHQFmlL52b_6-QZ0mnk_&index=4
+Colocation done
